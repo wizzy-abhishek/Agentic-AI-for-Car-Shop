@@ -1,0 +1,15 @@
+services:
+  vector-store:
+    image: pgvector/pgvector:pg16
+    env_file:
+      - dev.env
+    labels:
+      - "org.springframework.boot.service-connection=postgres"
+    ports:
+      - '5433:5432'
+  db:
+    image: postgres:16
+    env_file:
+      - pgdb.env
+    ports:
+      - '5434:5432'
