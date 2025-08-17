@@ -26,7 +26,10 @@ public class MainController {
     private final AuthLoginService authLoginService;
     private final JdbcChatMemoryRepository chatMemoryRepository;
 
-    public MainController(AppUserRepo appUserRepo, JwtService jwtService, ChatClient chatClient, AuthLoginService authLoginService,
+    public MainController(AppUserRepo appUserRepo,
+                          JwtService jwtService,
+                          ChatClient chatClient,
+                          AuthLoginService authLoginService,
                           JdbcChatMemoryRepository chatMemoryRepository) {
         this.appUserRepo = appUserRepo;
         this.jwtService = jwtService;

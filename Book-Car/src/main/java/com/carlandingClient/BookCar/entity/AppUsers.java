@@ -13,7 +13,7 @@ public class AppUsers {
     @Column(nullable = false)
     private String fullName;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
