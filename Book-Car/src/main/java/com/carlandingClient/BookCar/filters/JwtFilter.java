@@ -2,8 +2,8 @@ package com.carlandingClient.BookCar.filters;
 
 import com.carlandingClient.BookCar.entity.AppUsers;
 import com.carlandingClient.BookCar.entity.user_detail_impl.UserPrinciple;
-import com.carlandingClient.BookCar.service.AuthService;
-import com.carlandingClient.BookCar.service.JwtService;
+import com.carlandingClient.BookCar.service.auth.AuthService;
+import com.carlandingClient.BookCar.service.auth.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

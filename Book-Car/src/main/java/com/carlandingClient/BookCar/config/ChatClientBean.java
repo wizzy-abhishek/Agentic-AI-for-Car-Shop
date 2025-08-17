@@ -12,7 +12,7 @@ import org.springframework.core.io.Resource;
 import java.util.List;
 
 @Configuration
-public class Beans {
+public class ChatClientBean {
 
     @Value("classpath:GlobalPrompt.st")
     private Resource GLOBAL_PROMPT;
@@ -20,7 +20,7 @@ public class Beans {
     private final List<McpSyncClient> clients;
     private final SyncMcpToolCallbackProvider toolCallbackProvider;
 
-    public Beans(List<McpSyncClient> clients, SyncMcpToolCallbackProvider toolCallbackProvider) {
+    public ChatClientBean(List<McpSyncClient> clients, SyncMcpToolCallbackProvider toolCallbackProvider) {
         this.clients = clients;
         this.toolCallbackProvider = toolCallbackProvider;
     }
@@ -34,7 +34,5 @@ public class Beans {
                 .defaultSystem(GLOBAL_PROMPT)
                 .build();
     }
-
-
 
 }

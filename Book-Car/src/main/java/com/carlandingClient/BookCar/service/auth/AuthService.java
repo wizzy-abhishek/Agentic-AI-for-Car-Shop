@@ -1,4 +1,4 @@
-package com.carlandingClient.BookCar.service;
+package com.carlandingClient.BookCar.service.auth;
 
 import com.carlandingClient.BookCar.dto.LoginResponseDTO;
 import com.carlandingClient.BookCar.dto.SignUpDTO;
