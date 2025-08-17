@@ -1,0 +1,8 @@
+spring:
+  ai:
+    mcp:
+      server:
+        name: car-details
+        version: 1.0.0
+        type: SYNC
+        instruction: "The server provides details about the cars like model and description"

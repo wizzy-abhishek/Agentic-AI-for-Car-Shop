@@ -1,15 +1,18 @@
+version: '3.8'
+
 services:
-  vector-store:
-    image: pgvector/pgvector:pg16
-    env_file:
-      - dev.env
-    labels:
-      - "org.springframework.boot.service-connection=postgres"
+  pgvector:
+    image: pgvector/pgvector:pg17
+    container_name: pgvector
     ports:
-      - '5433:5432'
-  db:
-    image: postgres:16
-    env_file:
-      - pgdb.env
-    ports:
-      - '5434:5432'
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  pg_data:
