@@ -11,6 +11,7 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.ai.chat.memory.repository.jdbc.JdbcChatMemoryRepository;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,12 @@ public class ClientServiceImpl implements ClientService {
     private final JdbcChatMemoryRepository chatMemoryRepository;
 
 
-    public ClientServiceImpl(AppUserRepo appUserRepo, JwtService jwtService, AuthLoginService authLoginService, ChatClient chatClient, JdbcChatMemoryRepository chatMemoryRepository) {
+    public ClientServiceImpl(AppUserRepo appUserRepo,
+                             JwtService jwtService,
+                             AuthLoginService authLoginService,
+                             @Qualifier("chatClient") ChatClient chatClient,
+                         JdbcChatMemoryRepository chatMemoryRepository) {
+
         this.appUserRepo = appUserRepo;
         this.jwtService = jwtService;
         this.authLoginService = authLoginService;

@@ -17,13 +17,11 @@ public class MainController {
         this.clientService = clientService;
     }
 
-
-    @GetMapping("{user}/endPoint")
+    @GetMapping("endPoint")
     public ResponseEntity<String> agents(HttpServletRequest httpServletRequest,
                                          @RequestParam String prompt){
         String response = clientService.agent(httpServletRequest, prompt);
         return ResponseEntity.ok(response);
     }
-
 
 }

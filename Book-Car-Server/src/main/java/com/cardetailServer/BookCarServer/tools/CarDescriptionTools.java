@@ -30,8 +30,8 @@ public class CarDescriptionTools {
             description = "This tool provides the type/list of cars we sell, not if it is available or not")
     public String carDetails(@ToolParam(required = false, description = "The user id to keep chat memory") String user,
                           @ToolParam(description = "What is the type of car user is looking for") String question){
-        System.out.println("Tool 1 called");
 
+        System.out.println("Tool 1 called");
 
         return this.ai
                 .prompt()
