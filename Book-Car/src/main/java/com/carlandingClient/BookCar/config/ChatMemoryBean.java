@@ -1,4 +1,4 @@
-package com.cardetailServer.BookCarServer.config;
+package com.carlandingClient.BookCar.config;
 
 import org.springframework.ai.chat.memory.ChatMemoryRepository;
 import org.springframework.ai.chat.memory.repository.jdbc.JdbcChatMemoryRepository;
