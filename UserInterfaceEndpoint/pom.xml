@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.carlandingClient</groupId>
-	<artifactId>Book-Car</artifactId>
+	<artifactId>UserInterfaceEndpoint</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Book-Car</name>
 	<description>Agentic AI for Car booking</description>

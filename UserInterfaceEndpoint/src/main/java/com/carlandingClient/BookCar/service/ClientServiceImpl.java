@@ -58,12 +58,14 @@ public class ClientServiceImpl implements ClientService {
         UserMessage userMessage = new UserMessage(prompt);
         chatMemory.add(appUsers.getEmail(), userMessage);
 
-        return chatClient
+        String response = chatClient
                 .prompt(prompt)
                 .advisors(advisor -> advisor
                         .param(ChatMemory.CONVERSATION_ID, appUsers.getEmail())
                         .param("role", appUsers.getUserRole()))
                 .call()
                 .content();
+        System.out.println(response);
+        return response;
     }
 }
