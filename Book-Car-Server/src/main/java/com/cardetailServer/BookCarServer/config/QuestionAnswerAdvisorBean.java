@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class QuestionAnswerAdvisorBean {
 
-    @Bean
+    @Bean(name = "questionAnswerAdvisor")
     public QuestionAnswerAdvisor questionAnswerAdvisor(VectorStore vectorStore){
         return QuestionAnswerAdvisor.builder(vectorStore)
                 .searchRequest(SearchRequest
@@ -21,14 +21,4 @@ public class QuestionAnswerAdvisorBean {
                 .build();
     }
 
-    @Bean
-    public QuestionAnswerAdvisor oneCar(VectorStore vectorStore){
-        return QuestionAnswerAdvisor.builder(vectorStore)
-                .searchRequest(SearchRequest
-                        .builder()
-                        .similarityThreshold(0.8)
-                        .topK(1)
-                        .build())
-                .build();
-    }
 }

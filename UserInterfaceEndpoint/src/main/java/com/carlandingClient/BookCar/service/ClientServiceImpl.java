@@ -24,7 +24,6 @@ public class ClientServiceImpl implements ClientService {
     private final ChatClient chatClient;
     private final JdbcChatMemoryRepository chatMemoryRepository;
 
-
     public ClientServiceImpl(AppUserRepo appUserRepo,
                              JwtService jwtService,
                              AuthLoginService authLoginService,
