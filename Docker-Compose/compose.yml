@@ -13,6 +13,18 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     restart: always
+  oracle-db:
+    image: container-registry.oracle.com/database/free:23.5.0.0
+    container_name: oracle-free-db
+    restart: unless-stopped
+    ports:
+      - "1521:1521"
+      - "5500:5500"   # EM Express (optional)
+    environment:
+      - ORACLE_PWD=MyStrongPassword123   # SYS/SYSTEM password
+    volumes:
+      - oracle-data:/opt/oracle/oradata
 
 volumes:
   pg_data:
+  oracle-data:
