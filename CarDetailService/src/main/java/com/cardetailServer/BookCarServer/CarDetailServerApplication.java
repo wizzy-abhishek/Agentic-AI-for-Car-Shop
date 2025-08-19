@@ -8,10 +8,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableAsync
-public class BookCarServerApplication {
+public class CarDetailServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BookCarServerApplication.class, args);
+		SpringApplication.run(CarDetailServerApplication.class, args);
 	}
 
 }
