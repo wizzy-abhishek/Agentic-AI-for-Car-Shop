@@ -21,12 +21,12 @@ public class ChatClientBean {
     @Value("classpath:GlobalPrompt.st")
     private Resource GLOBAL_PROMPT;
 
-    private final List<McpSyncClient> clients;
+    //private final List<McpSyncClient> clients;
     private final SyncMcpToolCallbackProvider toolCallbackProvider;
 
     public ChatClientBean(List<McpSyncClient> clients,
                           SyncMcpToolCallbackProvider toolCallbackProvider) {
-        this.clients = clients;
+       // this.clients = clients;
         this.toolCallbackProvider = toolCallbackProvider;
     }
 
