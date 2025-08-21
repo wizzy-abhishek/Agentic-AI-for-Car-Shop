@@ -23,6 +23,7 @@ public class CarDescriptionTools {
             Single tool to answer car-related queries:
             - If the query is about a specific model → reply with only 'Available' or 'Not available'.
             - If the query is about a category (SUV, Sedan, etc.) → list car models and their descriptions.
+            - Like if a person asks for the price of a particular model.
             - Never reveal the quantity of cars in stock.
             """
     )

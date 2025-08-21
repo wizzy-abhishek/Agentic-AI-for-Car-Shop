@@ -44,8 +44,12 @@ public class VectorLoad implements ApplicationListener<ContextRefreshedEvent> {
         List<Document> docs = carsToLoad.stream()
                 .map(car -> new Document(
                         car.getId().toString(),
-                        "id: %s, modelName: %s, description: %s, available_quantity: %s".formatted(
-                                car.getId(), car.getModelName(), car.getDescription(), car.getAvailableQuantities()
+                        "id: %s, modelName: %s, description: %s, available_quantity: %s, price: %s".formatted(
+                                car.getId(),
+                                car.getModelName(),
+                                car.getDescription(),
+                                car.getAvailableQuantities(),
+                                car.getPrice()
                         ),
                         Map.of("carId", car.getId(), "type", "car")
                 ))
