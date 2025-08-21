@@ -6,6 +6,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,7 +15,6 @@ import java.time.LocalDateTime;
 public class Booking extends HanaVectorEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private String modelName;
@@ -30,9 +31,6 @@ public class Booking extends HanaVectorEntity {
     @Column(nullable = false)
     private char currencySymbol;
 
-    @Column(name = "content")
-    private String content;
-
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime purchaseDate;
@@ -41,35 +39,41 @@ public class Booking extends HanaVectorEntity {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getModelName() {
         return modelName;
-    }
-
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
     }
 
     public String getBuyerName() {
         return buyerName;
     }
 
-    public void setBuyerName(String buyerName) {
-        this.buyerName = buyerName;
-    }
-
     public String getBuyerEmail() {
         return buyerEmail;
     }
 
-    public String getPrice() {
-        return currencySymbol + " " + price;
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public char getCurrencySymbol() {
+        return currencySymbol;
     }
 
     public LocalDateTime getPurchaseDate(){
         return purchaseDate;
+    }
+
+    public Booking(String modelName,
+                   String buyerName,
+                   String buyerEmail,
+                   BigDecimal price,
+                   char currencySymbol) {
+        this.id = java.util.UUID.randomUUID().toString();
+        this.modelName = modelName;
+        this.buyerName = buyerName;
+        this.buyerEmail = buyerEmail;
+        this.price = price;
+        this.currencySymbol = currencySymbol;
+        this.purchaseDate = LocalDateTime.now();
     }
 }

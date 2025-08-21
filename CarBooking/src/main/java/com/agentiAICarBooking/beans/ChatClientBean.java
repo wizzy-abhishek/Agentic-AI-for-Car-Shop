@@ -1,8 +1,11 @@
 package com.agentiAICarBooking.beans;
 
+import com.agentiAICarBooking.tools.BookingTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.tool.ToolCallback;
+import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,5 +27,7 @@ public class ChatClientBean {
                 .defaultToolCallbacks(tools)
                 .build();
     }
+
+
 
 }

@@ -61,7 +61,9 @@ public class ClientServiceImpl implements ClientService {
                 .prompt(prompt)
                 .advisors(advisor -> advisor
                         .param(ChatMemory.CONVERSATION_ID, appUsers.getEmail())
-                        .param("role", appUsers.getUserRole()))
+                        .param("role", appUsers.getUserRole())
+                        .param("email", appUsers.getEmail())
+                        .param("user_name", appUsers.getFullName()))
                 .call()
                 .content();
         System.out.println(response);
