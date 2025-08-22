@@ -25,11 +25,5 @@ public class HanaVectorSore {
                 .build();
     }
 
-    @Bean
-    public ToolCallbackProvider carDetailTool(BookingTools bookingTools){
-        return MethodToolCallbackProvider
-                .builder()
-                .toolObjects(bookingTools)
-                .build();
-    }
+
 }

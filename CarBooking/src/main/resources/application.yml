@@ -1,8 +1,50 @@
 spring:
+  application:
+    name: CarBooking
+
+  datasource:
+    driver-class-name: com.sap.db.jdbc.Driver
+    url: ${HANA_URL}
+    username: ${HANA_DATASOURCE_USERNAME}
+    password: ${HANA_DATASOURCE_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  sql:
+    init:
+      mode: always
+
   ai:
+    openai:
+      api-key: ${OPEN_AI}
+      chat:
+        options:
+          model: gpt-5
+          temperature: 1
+
+    vectorstore:
+      hanadb:
+        tableName: BOOKING
+        topK: 3
+
     mcp:
       server:
         name: car-details
         version: 1.0.0
+        resource-change-notification: true
+        tool-change-notification: true
+        prompt-change-notification: true
+        sse-endpoint: /sse
+        sse-message-endpoint: /mcp/message
         type: SYNC
-        instruction: "The server provides details about the cars like model and description"
+        instruction: "The server does booking of cars"
+        capabilities:
+          tool: true
+          resource: false
+          prompt: false
+          completion: true
+
+server:
+  port: 8082

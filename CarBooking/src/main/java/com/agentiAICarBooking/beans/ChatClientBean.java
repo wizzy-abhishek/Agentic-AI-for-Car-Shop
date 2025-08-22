@@ -1,30 +1,28 @@
 package com.agentiAICarBooking.beans;
 
-import com.agentiAICarBooking.tools.BookingTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
+import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
 import org.springframework.ai.tool.ToolCallback;
-import org.springframework.ai.tool.ToolCallbackProvider;
-import org.springframework.ai.tool.method.MethodToolCallbackProvider;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
 
 @Configuration
 public class ChatClientBean {
 
-    @Value("classpath:GlobalPromptCarBooking.st")
-    private Resource resource;
+    private final String resource = """
+    You are an AI agent. You book car orders. You have a tool called bookACar.
+    Check that the car user is asking is available or not.""";
 
     @Bean
     public ChatClient defaultChatClient(ChatClient.Builder chatClient,
                                         QuestionAnswerAdvisor advisor,
-                                        ToolCallback[] tools){
+                                        ToolCallback[] toolCallbacks){
+
         return chatClient
                 .defaultSystem(resource)
+                .defaultTools(toolCallbacks)
                 .defaultAdvisors(advisor)
-                .defaultToolCallbacks(tools)
                 .build();
     }
 

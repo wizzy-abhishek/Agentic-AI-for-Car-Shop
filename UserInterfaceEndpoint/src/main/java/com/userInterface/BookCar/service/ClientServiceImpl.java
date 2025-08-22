@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class ClientServiceImpl implements ClientService {
 
@@ -49,7 +51,6 @@ public class ClientServiceImpl implements ClientService {
     public String agent(HttpServletRequest httpServletRequest, String prompt) {
 
         AppUsers appUsers = fetchAppUser(httpServletRequest);
-
         ChatMemory chatMemory = MessageWindowChatMemory.builder()
                 .chatMemoryRepository(chatMemoryRepository)
                 .maxMessages(10)
@@ -57,16 +58,24 @@ public class ClientServiceImpl implements ClientService {
         UserMessage userMessage = new UserMessage(prompt);
         chatMemory.add(appUsers.getEmail(), userMessage);
 
-        String response = chatClient
-                .prompt(prompt)
-                .advisors(advisor -> advisor
-                        .param(ChatMemory.CONVERSATION_ID, appUsers.getEmail())
-                        .param("role", appUsers.getUserRole())
-                        .param("email", appUsers.getEmail())
-                        .param("user_name", appUsers.getFullName()))
-                .call()
-                .content();
-        System.out.println(response);
-        return response;
+        System.out.println(prompt);
+        try {
+            String response = chatClient
+                    .prompt(prompt)
+                    .advisors(advisor -> advisor
+                            .param(ChatMemory.CONVERSATION_ID, appUsers.getEmail()))
+                    .toolContext(Map.of("role", appUsers.getUserRole(),
+                            "email", appUsers.getEmail(),
+                            "user_name", appUsers.getFullName()))
+                    .call()
+                    .content();
+
+            System.out.println(response);
+            return response;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error occurred: " + e.getMessage();
+        }
     }
 }

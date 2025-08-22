@@ -1,8 +1,52 @@
+server:
+  port: 8081
+
 spring:
+  application:
+    name: CarDetailService
+  main:
+    allow-bean-definition-overriding: true
+    banner:
+      mode: off
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/mydb
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  sql:
+    init:
+      mode: always
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
   ai:
+    openai:
+      api-key: ${OPEN_AI}
+      chat:
+        options:
+          model: gpt-5
+          temperature: 1
+
     mcp:
       server:
+        enabled: true
+        stdio: false
         name: car-details
         version: 1.0.0
+        resource-change-notification: true
+        tool-change-notification: true
+        prompt-change-notification: true
+        sse-endpoint: /sse
+        sse-message-endpoint: /mcp/message
         type: SYNC
         instruction: "The server provides details about the cars like model and description"
+        capabilities:
+          tool: true
+          resource: false
+          prompt: false
+          completion: true
+

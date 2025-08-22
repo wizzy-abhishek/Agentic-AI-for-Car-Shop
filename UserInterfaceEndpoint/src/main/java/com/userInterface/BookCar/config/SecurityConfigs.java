@@ -20,7 +20,9 @@ public class SecurityConfigs {
 
     private final JwtFilter jwtFilter;
 
-    private static final String[] PUBLIC_ROUTES = {"/auth/**", "/v1/**", "/mcp/**", "/ai/**", "/tools/**"};
+    private static final String[] PUBLIC_ROUTES = {
+            "/auth/**",
+            "/api/sse"};
 
     public SecurityConfigs(JwtFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
@@ -32,7 +34,7 @@ public class SecurityConfigs {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(PUBLIC_ROUTES).permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .sessionManagement(session -> session.
                         sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

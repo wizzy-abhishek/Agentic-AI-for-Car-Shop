@@ -3,6 +3,7 @@ package com.agentiAICarBooking.tools;
 import com.agentiAICarBooking.entity.Booking;
 import com.agentiAICarBooking.repo.BookingRepo;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ToolContext;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.tool.annotation.Tool;
@@ -32,22 +33,22 @@ public class BookingTools {
         this.bookingRepo = bookingRepo;
     }
 
-    @Tool(description = """ 
+    @Tool(name = "bookACar", description = """ 
             This is used to book a car.
             It has some mandatory requirement. They are:
-                - Email of the user who will book
                 - Model name of for which user will book
-                - Buyer name
                 - Price of the car model
                 - Symbol of the currency in which the currency is provided like $, €, ₹, etc.
-            User will only give the model name of car rest will passed from tool param.
             Do not hallucinate about any assumption.
             """ )
-    public String bookACar(@ToolParam(description = "email") String email,
-                           @ToolParam(description = "model name of car") String modelName,
+    public String bookACar(@ToolParam(description = "model name of car") String modelName,
                            @ToolParam(description = "user_name")String user_name,
                            @ToolParam(description = "Price of the model. Just the numeric Value") long value,
-                           @ToolParam(description = "character of the currency just one value as it is char") char currency){
+                           @ToolParam(description = "character of the currency just one value as it is char") char currency,
+                           @ToolParam(description = "tool context is set always bring them") ToolContext toolContext){
+        String email = "***";
+        System.out.println("Hello" + toolContext.getContext().size() );
+        toolContext.getContext().forEach((s,d)-> System.out.println(s + d.toString()));
 
         Booking booking = new Booking(modelName, user_name, email, new BigDecimal(value), currency);
 
