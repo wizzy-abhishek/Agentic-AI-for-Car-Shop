@@ -1,6 +1,9 @@
 spring:
   application:
     name: CarBooking
+  main:
+    allow-bean-definition-overriding: true
+    banner-mode: off
 
   datasource:
     driver-class-name: com.sap.db.jdbc.Driver

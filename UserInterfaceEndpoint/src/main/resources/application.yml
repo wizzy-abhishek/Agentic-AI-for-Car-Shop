@@ -7,14 +7,12 @@ spring:
 
   main:
     allow-bean-definition-overriding: true
-    banner:
-      mode: off
+    banner-mode: off
 
   datasource:
     url: jdbc:postgresql://localhost:5433/main_db
     username: postgres
     password: password
-    driver-class-name: org.postgresql.Driver
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
