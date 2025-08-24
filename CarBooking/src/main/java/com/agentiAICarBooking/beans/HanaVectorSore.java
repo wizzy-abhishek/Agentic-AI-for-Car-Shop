@@ -1,10 +1,7 @@
 package com.agentiAICarBooking.beans;
 
-import com.agentiAICarBooking.repo.BookingRepo;
-import com.agentiAICarBooking.tools.BookingTools;
+import com.agentiAICarBooking.repo.BookingEmbedRepo;
 import org.springframework.ai.embedding.EmbeddingModel;
-import org.springframework.ai.tool.ToolCallbackProvider;
-import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.ai.vectorstore.hanadb.HanaCloudVectorStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,16 +9,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class HanaVectorSore {
 
-    private final BookingRepo bookingRepo;
+    private final BookingEmbedRepo bookingRepo;
 
-    public HanaVectorSore(BookingRepo bookingRepo) {
+    public HanaVectorSore(BookingEmbedRepo bookingRepo) {
         this.bookingRepo = bookingRepo;
     }
 
     @Bean
     public HanaCloudVectorStore hanaCloudVectorStore(EmbeddingModel embeddingModel){
         return HanaCloudVectorStore.builder(bookingRepo, embeddingModel)
-                .tableName("BOOKING")
+                .tableName("BOOKING_EMBED")
                 .build();
     }
 

@@ -1,14 +1,11 @@
 package com.agentiAICarBooking.tools;
 
 import com.agentiAICarBooking.entity.Booking;
-import com.agentiAICarBooking.repo.BookingRepo;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.chat.model.ToolContext;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -55,13 +52,13 @@ public class BookingTools {
         Booking booking = new Booking(modelName, user_name, email, new BigDecimal(value), currency, description);
 
         String content = """
-                ID:%s ;
-                MODEL_NAME:%s ;
-                BUYER_NAME:%s ;
-                BUYER_EMAIL:%s ;
-                PRICE:%s ;
-                CURRENCY_SYMBOL:%s ;
-                PURCHASE_DATE:%s ;
+                ID:%s,\s
+                MODEL_NAME:%s,\s
+                BUYER_NAME:%s,\s
+                BUYER_EMAIL:%s,\s
+                PRICE:%s,\s
+                CURRENCY_SYMBOL:%s,\s
+                PURCHASE_DATE:%s,\s
                 USER_CUSTOMIZATION:%s
                 """
                 .formatted(booking.getId(),
@@ -84,11 +81,14 @@ public class BookingTools {
     @Tool(description = "get booking details")
     public String search(@ToolParam(description = "what user is searching for") String prompt){
         List<Document> documents = vectorStore.similaritySearch(prompt);
-        String collect = documents.stream().map(Document::getText).collect(Collectors.joining(System.lineSeparator()));
+        String collect = documents.stream()
+                .map(Document::getText)
+                .collect(Collectors.joining(System.lineSeparator()));
+
         var similarDocsMessage = new SystemPromptTemplate("Based on the following: {documents}")
                 .createMessage(Map.of("documents", collect));
 
-        System.out.println(documents.size());
+
 
         var userMessage = new UserMessage(prompt);
         Prompt p = new Prompt(List.of(similarDocsMessage, userMessage));

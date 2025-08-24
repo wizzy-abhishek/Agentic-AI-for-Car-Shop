@@ -29,7 +29,7 @@ spring:
 
     vectorstore:
       hanadb:
-        tableName: BOOKING
+        tableName: BOOKING_EMBED
         topK: 9
 
     mcp:
