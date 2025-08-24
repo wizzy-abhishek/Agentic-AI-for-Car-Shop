@@ -3,6 +3,7 @@ package com.agentiAICarBooking.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Getter
+@NoArgsConstructor
 public class Booking {
 
     @Id
@@ -45,7 +47,6 @@ public class Booking {
                    char currencySymbol,
                    String userDescription) {
 
-        this.id = java.util.UUID.randomUUID().toString();
         this.modelName = modelName;
         this.buyerName = buyerName;
         this.buyerEmail = buyerEmail;

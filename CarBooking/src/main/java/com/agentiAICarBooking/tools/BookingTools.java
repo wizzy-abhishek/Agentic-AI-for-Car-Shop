@@ -1,6 +1,8 @@
 package com.agentiAICarBooking.tools;
 
 import com.agentiAICarBooking.entity.Booking;
+import com.agentiAICarBooking.repo.BookingRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -17,16 +19,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 public class BookingTools {
+
+    private final BookingRepo bookingRepo;
 
     private final VectorStore vectorStore;
     private final ChatClient chatClient;
 
     public BookingTools(VectorStore vectorStore,
-                        @Lazy ChatClient chatClient) {
+                        @Lazy ChatClient chatClient,
+                        BookingRepo bookingRepo) {
         this.vectorStore = vectorStore;
         this.chatClient = chatClient;
+        this.bookingRepo = bookingRepo;
     }
 
     @Tool(
@@ -71,8 +78,14 @@ public class BookingTools {
                         booking.getUserDescription());
 
         Document doc = new Document(content);
+        try{
+            vectorStore.add(List.of(doc));
+            bookingRepo.save(booking);
 
-        vectorStore.add(List.of(doc));
+        }catch (Exception e){
+            log.error("Could not save : {}", e.getMessage());
+        }
+
 
         return "Booking successful for model " + booking.getModelName() + " by " + booking.getBuyerName();
     }

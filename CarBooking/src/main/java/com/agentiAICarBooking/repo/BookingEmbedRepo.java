@@ -52,22 +52,16 @@ public class BookingEmbedRepo implements HanaVectorRepository<BookingEmbed> {
     @Override
     public List<BookingEmbed> cosineSimilaritySearch(String tableName, int topK, String queryEmbedding) {
 
-        System.out.println("Hello " + tableName);
-
         String sql = """
             SELECT TOP :topK * FROM %s\s
             ORDER BY COSINE_SIMILARITY(EMBEDDING, TO_REAL_VECTOR(:queryEmbedding)) DESC
            \s""".formatted(tableName);
 
-        List resultList = entityManager.createNativeQuery(sql, BookingEmbed.class)
+        return entityManager.createNativeQuery(sql, BookingEmbed.class)
                 .setParameter("queryEmbedding", queryEmbedding)
                 .setParameter("topK", topK)
                 .getResultList();
 
-        System.out.println(resultList.size());
-        System.out.println("Hello");
-
-        return resultList;
     }
 }
 
