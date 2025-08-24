@@ -22,8 +22,6 @@ public class Car {
 
     private String description;
 
-    private Integer availableQuantities;
-
     private String price;
 
     @LastModifiedDate
@@ -41,10 +39,6 @@ public class Car {
         return description;
     }
 
-    public Integer getAvailableQuantities() {
-        return availableQuantities;
-    }
-
     public String getPrice() {
         return price;
     }
@@ -53,17 +47,12 @@ public class Car {
         return lastModification;
     }
 
-    public void setAvailableQuantities(Integer availableQuantities) {
-        this.availableQuantities = availableQuantities;
-    }
-
     public Car() {
     }
 
-    public Car(String modelName, String description, Integer availableQuantities, String price) {
+    public Car(String modelName, String description, String price) {
         this.modelName = modelName;
         this.description = description;
-        this.availableQuantities = availableQuantities;
         this.price = price;
     }
 }

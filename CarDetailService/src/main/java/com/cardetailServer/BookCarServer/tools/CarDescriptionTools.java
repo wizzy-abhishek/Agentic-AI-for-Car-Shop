@@ -20,12 +20,11 @@ public class CarDescriptionTools {
     @Tool(
             name = "carSearch",
             description = """
-            Single tool to answer car-related queries:
-            - If the query is about a specific model → reply with only 'Available' or 'Not available'.
-            - If the query is about a category (SUV, Sedan, etc.) → list car models and their descriptions.
-            - Like if a person asks for the price of a particular model.
-            - Never reveal the quantity of cars in stock.
-            """
+                Answer car-related queries:
+                - If user asks about any specific model describe that model, and tell about other models in that range and category.\s
+                - Category (SUV, Sedan) → list models with descriptions\s
+                - Price queries → give correct price\s
+    """
     )
     public String carSearch(
             @ToolParam(description = "The user's query (car model, category, or anything about car)") String query) {

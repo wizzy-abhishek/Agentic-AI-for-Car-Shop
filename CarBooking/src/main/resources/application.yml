@@ -24,13 +24,13 @@ spring:
       api-key: ${OPEN_AI}
       chat:
         options:
-          model: gpt-5
-          temperature: 1
+          model: gpt-4.1
+          temperature: 0.5
 
     vectorstore:
       hanadb:
         tableName: BOOKING
-        topK: 3
+        topK: 9
 
     mcp:
       server:

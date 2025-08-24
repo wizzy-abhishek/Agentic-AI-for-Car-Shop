@@ -1,6 +1,6 @@
 package com.userInterface.BookCar.controller;
 
-import com.carlandingClient.BookCar.service.interfaces.ClientService;
+import com.userInterface.BookCar.service.interfaces.ClientService;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.http.ResponseEntity;

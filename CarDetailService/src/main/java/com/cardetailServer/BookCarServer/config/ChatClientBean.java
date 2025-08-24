@@ -20,7 +20,6 @@ public class ChatClientBean {
                                  ToolCallback[] toolCallbacks,
                                  QuestionAnswerAdvisor questionAnswerAdvisor) {
 
-        System.out.println(resource.getDescription());
         return chatClient
                 .defaultSystem(resource)
                 .defaultTools(toolCallbacks)
