@@ -79,8 +79,8 @@ public class BookingTools {
 
         Document doc = new Document(content);
         try{
-            vectorStore.add(List.of(doc));
             bookingRepo.save(booking);
+            vectorStore.add(List.of(doc));
 
         }catch (Exception e){
             log.error("Could not save : {}", e.getMessage());
