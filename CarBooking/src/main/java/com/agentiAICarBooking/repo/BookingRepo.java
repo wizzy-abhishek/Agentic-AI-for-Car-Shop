@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class BookingRepo implements HanaVectorRepository<Booking> {
@@ -61,9 +60,9 @@ public class BookingRepo implements HanaVectorRepository<Booking> {
         }
 
         String sql = """
-                        INSERT INTO BOOKING 
-                        (_ID, ID, MODEL_NAME, BUYER_NAME, BUYER_EMAIL, PRICE, CURRENCY_SYMBOL, PURCHASE_DATE, CONTENT, EMBEDDING, USER_CUSTOMIZATION) 
-                        VALUES (:_id, :ID, :MODEL_NAME, :BUYER_NAME, :BUYER_EMAIL, :PRICE, :CURRENCY_SYMBOL, :PURCHASE_DATE, :content, TO_REAL_VECTOR(:embedding), :USER_CUSTOMIZATION)
+                            INSERT INTO BOOKING 
+                            (_ID, ID, MODEL_NAME, BUYER_NAME, BUYER_EMAIL, PRICE, CURRENCY_SYMBOL, PURCHASE_DATE, CONTENT, EMBEDDING, USER_CUSTOMIZATION) 
+                            VALUES (:_id, :ID, :MODEL_NAME, :BUYER_NAME, :BUYER_EMAIL, :PRICE, :CURRENCY_SYMBOL, :PURCHASE_DATE, :content, TO_REAL_VECTOR(:embedding), :USER_CUSTOMIZATION)
                         """;
 
         this.entityManager.createNativeQuery(sql)
@@ -100,7 +99,6 @@ public class BookingRepo implements HanaVectorRepository<Booking> {
     @Override
     public List<Booking> cosineSimilaritySearch(String tableName, int topK, String queryEmbedding) {
 
-        // **FIX 2:** Use TOP instead of LIMIT
         String sql = """
             SELECT TOP :topK * FROM %s\s
             ORDER BY COSINE_SIMILARITY(EMBEDDING, TO_REAL_VECTOR(:queryEmbedding)) DESC
