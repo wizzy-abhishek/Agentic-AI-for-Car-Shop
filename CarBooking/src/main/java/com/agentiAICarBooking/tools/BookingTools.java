@@ -24,15 +24,11 @@ import java.util.stream.Collectors;
 public class BookingTools {
 
     private final BookingRepo bookingRepo;
-
     private final VectorStore vectorStore;
-    private final ChatClient chatClient;
 
     public BookingTools(VectorStore vectorStore,
-                        @Lazy ChatClient chatClient,
                         BookingRepo bookingRepo) {
         this.vectorStore = vectorStore;
-        this.chatClient = chatClient;
         this.bookingRepo = bookingRepo;
     }
 
@@ -86,31 +82,11 @@ public class BookingTools {
             log.error("Could not save : {}", e.getMessage());
         }
 
-
         return "Booking successful for model " + booking.getModelName() + " by " + booking.getBuyerName();
     }
 
 
-    @Tool(description = "get booking details")
-    public String search(@ToolParam(description = "what user is searching for") String prompt){
-        List<Document> documents = vectorStore.similaritySearch(prompt);
-        String collect = documents.stream()
-                .map(Document::getText)
-                .collect(Collectors.joining(System.lineSeparator()));
 
-        var similarDocsMessage = new SystemPromptTemplate("Based on the following: {documents}")
-                .createMessage(Map.of("documents", collect));
-
-
-
-        var userMessage = new UserMessage(prompt);
-        Prompt p = new Prompt(List.of(similarDocsMessage, userMessage));
-
-        return chatClient
-                .prompt(p)
-                .call()
-                .content();
-    }
 
 }
 
